@@ -1,0 +1,41 @@
+.card {
+    position: relative;
+    background: snow;
+    width: fit-content;
+    border: 1px solid gray;
+    border-radius: 8px;
+}
+  
+.front img {
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+}
+  
+.btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 9999;
+    display: flex;
+    gap: 2px;
+    margin: 0.25rem;
+}
+.btn button {
+    background: snow;
+    border: 1px solid gray;
+    width: 2.25rem;
+    height: 2.25rem;
+    text-align: center;
+    padding: 4px 8px 4px 8px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+.btn button:hover {
+    cursor: pointer;
+    background: lightgray;
+}
+.likeBtn {
+    background: transparent;
+    border: none;
+}
+  

@@ -4,6 +4,7 @@ import { connect, useDispatch } from 'react-redux'
 import { filterCards, orderCards } from "../../redux/actions.js";
 
 const Favorites = ({ myFavorites }) => {
+    const [favorites, setFavorites] = useState(myFavorites);
     const [aux, seTAux ] = useState(false)
     const dispatch = useDispatch();
     const handleOrder = (event) => {
@@ -13,6 +14,12 @@ const Favorites = ({ myFavorites }) => {
     const handleFilter = (event) => {
         dispatch(filterCards(event.target.value));
     }
+    const onClose = (id) => {
+        const charactersFiltered = favorites.filter(
+          (character) => character.id !== id
+        );
+        setFavorites(charactersFiltered);
+    };
     return (
         <div>
             <select name="Order" onChange={handleOrder}>
@@ -36,7 +43,7 @@ const Favorites = ({ myFavorites }) => {
                             species={fav.species}
                             gender={fav.gender}
                             image={fav.image}
-                            onClose={fav.onClose}
+                            onClose={onClose}
                         />
                     )
                 })

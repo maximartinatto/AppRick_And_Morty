@@ -59,7 +59,7 @@ function App(){
             <Route path='/'element={<Form login={login}/>}/>
             <Route path='/home' element={<Cards characters={characters} onClose={onClose}/>}/>
             <Route path='/about'element={<About/>}/>
-            <Route path='/favorite' element={<Favorites/>}/>
+            <Route path='/favorites' element={<Favorites/>}/>
             <Route path='/detail/:id'element={<Detail/>}/>
          </Routes>
       </div>
