@@ -9,38 +9,44 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 
-const URL_BASE = 'http://localhost:3001/rickandmorty/character';
+//const URL_BASE = 'http://localhost:3001/rickandmorty/character';
+//const email = 'martinattomaximiliano@gmail.com';
+//const password = 'river564';
 
-
-const email = 'martinattomaximiliano@gmail.com';
-const password = 'riverplate564';
+const URL = 'http://localhost:3001/rickandmorty/login';
 
 function App(){
    const location = useLocation();
    const navigate = useNavigate();
    const [characters, setCharacters] = useState([]);
-   const [acces, setAcces] = useState(false);
+   const [access, setAccess] = useState(false);
 
-   const login = (userData) => {
-      if(userData.email === email && userData.password === password){
-         setAcces(true);
-         navigate('/home');
+   const login = async (userData) => {
+      try {
+         const { email, password } = userData;
+         const { data } = await axios(URL + `?email=${email}&password=${password}`);
+         const { access } = data;
+
+         setAccess(access);
+         access && navigate('/home');
+      } catch (error) {
+         console.log(error.message);
       }
    }
    useEffect(() => {
-      !acces && navigate('/')
-   }, [acces])
-
-   const onSearch = (id) => {
-      axios(`${URL_BASE}/${id}`) // forma correcta de trabajar
-      .then(response => response.data)
-      .then((data) => {
-      if (data.name) {
-         setCharacters((oldChars) => [...oldChars, data]);
-      } else {
+      !access && navigate('/')
+   }, [access, navigate])
+   const onSearch = async (id) => {
+      try {
+         const { data } = await axios(`http://localhost:3001/rickandmorty/character/${id}`) // forma correcta de trabajar
+         
+         if (data.name) {
+            setCharacters((oldChars) => [...oldChars, data]);
+         };
+      } catch (error) {
          alert('¡No hay personajes con este ID!');
       }
-      });
+     
    }
    const onClose = (id) => {
       const charactersFiltered = characters.filter(character => 
@@ -51,7 +57,7 @@ function App(){
       <div className='App'>
          {
             location.pathname !== '/'
-            ? <Nav onSearch={onSearch} setAcces={setAcces}/>
+            ? <Nav onSearch={onSearch} setAccess={setAccess}/>
             : null
          }
          
