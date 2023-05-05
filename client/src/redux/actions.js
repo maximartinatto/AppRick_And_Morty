@@ -1,4 +1,4 @@
-import { ADD_FAV, REMOVE_FAV , FILTER, ORDER, CLOSE} from './action-types';
+import { ADD_FAV, REMOVE_FAV , FILTER, ORDER, CLOSE, ADD_CHARACTERS, REMOVE_CHARACTER} from './action-types';
 import axios from "axios";
 
 
@@ -19,7 +19,19 @@ export const addFav = (character) => {
         } 
     };
 }
+export function addCharacters(characters) {
+    return {
+      type: ADD_CHARACTERS,
+      payload: characters,
+    };
+}
 
+export function removeCharacter(id) {
+    return {
+      type: REMOVE_CHARACTER,
+      payload: id,
+    };
+}
 export const removeFav = (id) => {
     const endpoint = `http://localhost:3001/rickandmorty/fav/${id}`;
     return async (dispatch) => {
